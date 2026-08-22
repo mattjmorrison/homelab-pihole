@@ -15,6 +15,9 @@ spec:
         - name: verify
           image: "{{ .Values.verify.image.repository }}@{{ .Values.verify.image.digest }}"
           command: ["/bin/sh", "/scripts/verify.sh"]
+          env:
+            - name: PIHOLE_ADDR
+              value: {{ .Values.piholeAddress | quote }}
           volumeMounts:
             - name: script
               mountPath: /scripts
