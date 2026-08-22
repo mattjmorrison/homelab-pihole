@@ -6,7 +6,7 @@ metadata:
 data:
   05-local-dns.conf: |
     {{- range .Values.ingressHosts }}
-    address=/{{ . }}/{{ $.Values.ingressAddress }}
+    address=/{{ . }}/{{ $.Values.piholeAddress }}
     {{- end }}
     {{- range $host, $ip := .Values.localHosts }}
     address=/{{ $host }}/{{ $ip }}
