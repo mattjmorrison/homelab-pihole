@@ -5,25 +5,12 @@ metadata:
   namespace: pihole
 data:
   05-local-dns.conf: |
-    address=/argocd.morrisons.site/192.168.68.84
-    address=/prometheus.morrisons.site/192.168.68.84
-    address=/alertmanager.morrisons.site/192.168.68.84
-    address=/grafana.morrisons.site/192.168.68.84
-    address=/openbao.morrisons.site/192.168.68.84
-    address=/home-assistant.morrisons.site/192.168.68.84
-    address=/pihole.morrisons.site/192.168.68.84
-    address=/homelab.morrisons.site/192.168.68.84
-    address=/registry.morrisons.site/192.168.68.84
-    address=/woodpecker.morrisons.site/192.168.68.84
-    address=/hdmi-switch.morrisons.site/192.168.68.84
-    address=/graph-hdmi-switch.morrisons.site/192.168.68.84
-    address=/graphql.morrisons.site/192.168.68.84
-    address=/control.morrisons.site/192.168.68.84
-    address=/pizero.local/192.168.68.93
-    address=/pi1.local/192.168.68.92
-    address=/basementpc.local/192.168.68.78
-    address=/nevespc.local/192.168.68.100
-    address=/Matthews-MacBook-Air.local/192.168.68.71
+    {{- range .Values.ingressHosts }}
+    address=/{{ . }}/{{ $.Values.ingressAddress }}
+    {{- end }}
+    {{- range $host, $ip := .Values.localHosts }}
+    address=/{{ $host }}/{{ $ip }}
+    {{- end }}
     filter-AAAA
     filter-rr=HTTPS
     filter-rr=SVCB
